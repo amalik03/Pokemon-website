@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- TODO STYLES HERE -->
+
+<div class="py-2 rounded-full bg-black inline-flex justify-center w-20">
+  <a href="{{ url_for('index') }}">Home</a>
+</div>
+
+<div class="py-2 my-2 px-1 bg-white/10 overflow-hidden backdrop-blur-sm backdrop-saturate-200 rounded-lg flex flex-col items-center max-w-[32rem]">
+  <h1 class="font-bold text-4xl">{{ pokemon_name }}</h1>
+  <img
+    src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/{{ info['id'] }}.png"
+    height="450px"
+    width="350px"/>
+     <img class="w-full h-full blur-3xl -z-10 absolute scale-[3] top-0 left-0 opacity-50 saturate-200" 
+    src= "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/{{ info['id'] }}.png" width="100%">
+
+  <div class="py-4 px-2 flex flex-row rounded-full bg-white/40 backdrop-saturate-200 text-white">
+    <b>Name:</b>
+    <div class="px-3 py-2 mx-1 rounded-full bg-white/50 text-black"> {{ info["name"] }} </div>
+
+    <b>Height:</b>
+    <div class="px-3 py-2 mx-1 rounded-full bg-white/50 text-black"> {{ info["height"] }} </div>
+ 
+    <b>Weight:</b>
+    <div class="px-3 py-2 mx-1 rounded-full bg-white/50 text-black"> {{ info["weight"] }} </div>
+
+    <b>Base XP:</b>
+    <div class="px-3 py-2 mx-1 rounded-full bg-white/50 text-black"> {{ info["base_exp"] }} </div>
+  </div>
+  
+  <br>
+  <b>Moves</b>
+  <div class="flex flex-wrap w-fit justify-start gap-2">
+    {% for move in info["moves"] %}
+    <div class="rounded-full bg-black/50 px-1 mx-[1.5px]">{{ move }}</div>
+    {% endfor %}
+  </div>
+
+  <br>
+  <b>Abilities</b>
+  <div class="flex flex-wrap w-full justify-start gap-2">
+    {% for ability in info["abilities"] %}
+    <div class="rounded-full bg-black/50 rounded-2 px-2">  
+      <a href="{{ url_for('pokemon_with_ability', ability_name=ability) }}"><u> {{ ability }} </u></a> 
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

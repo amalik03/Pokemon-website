@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- TODO STYLES HERE -->
+<b>Poke-Info website!</b>
+<div class="rounded-full text-center sticky top-0 z-10">
+<input type="text" id="some" placeholder=" Search for Pokemon" class="p-2 rounded-full text-center sticky">
+</div>
+<!-- Div that lays out the grids  -->
+<div class="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+    {% for pokemon, pokemonid in pokemon_list|zip(poke_ids) %}
+    <!-- the design of the grids -->
+    <div class="bg-black hover:bg-white duration-300 font-medium text-white hover:text-red-500 hover:scale-110">
+        <a href="{{url_for('pokemon_info', pokemon_name=pokemon)}}">
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/{{ pokemonid }}.png">
+        </a>
+        <div class="p-4">
+            <a href="{{url_for('pokemon_info', pokemon_name=pokemon)}}">{{ pokemon }}</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+<script>
+   let inp = document.getElementById("some");
+   const cards = document.querySelectorAll("div.grid > div");
+
+   inp.addEventListener("input", (e) => {
+      const searchValue = e.target.value.toLowerCase();
+      cards.forEach((card) => {
+         const name = card.querySelector("div.p-4 > a").textContent.toLowerCase();
+         if (name.includes(searchValue)) {
+            card.style.display = "flex"; 
+         } else {
+            card.style.display = "none";
+         }
+      });
+   });
+</script>
+{% endblock %}
