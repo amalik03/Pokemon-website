@@ -5,12 +5,17 @@
     <a href="{{ url_for('index') }}">Home</a>
 </div>
 <b>Pokemon With Ability {{ ability_name }}:</b>
-<ol>
-    {% for pokemon,id in pokemon_list.items() %}
-    <li>
-        <a href="{{ url_for('pokemon_info', pokemon_name=pokemon) }}">{{ pokemon }}</a>
-        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{{ id }}.png" />
-    </li>
+<div class="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+     {% for pokemon,id in pokemon_list.items() %}
+    <!-- the design of the grids -->
+    <div class="bg-black hover:bg-white duration-300 font-medium text-white hover:text-red-500 hover:scale-110">
+        <a href="{{url_for('pokemon_info', pokemon_name=pokemon)}}">
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/{{ id }}.png">
+        </a>
+        <div class="p-4">
+            <a href="{{url_for('pokemon_info', pokemon_name=pokemon)}}">{{ pokemon }}</a>
+        </div>
+    </div>
     {% endfor %}
-</ol>
+</div>
 {% endblock %}
